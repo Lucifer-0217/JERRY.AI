@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jerry AI - Voice Assistant</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2e2e2e;  /* Dark Grey background */
+            color: #f5f5f5;  /* Light text color for contrast */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #383838;  /* Slightly lighter background for container */
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 800px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 34px;
+            color: #e0e0e0;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 18px;
+            color: #b0b0b0;
+        }
+
+        #voice-input {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .microphone-container {
+            position: relative;
+        }
+
+        #mic-icon {
+            font-size: 60px;
+            color: #f44336;  /* Red when listening */
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+
+        #mic-icon:hover {
+            transform: scale(1.2);
+        }
+
+        #start-listening {
+            background-color: #4caf50;
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        #start-listening:hover {
+            background-color: #388e3c;
+        }
+
+        #status {
+            margin-top: 15px;
+            font-size: 18px;
+            color: #9e9e9e;
+        }
+
+        #chat-container {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        #chat-box {
+            padding: 20px;
+            background-color: #555555;  /* Light black for chatbox */
+            border-radius: 12px;
+            height: 300px;
+            overflow-y: auto;
+            font-size: 16px;
+            color: #f5f5f5;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        #user-input {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #user-input-text {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            background-color: #424242;
+            color: #f5f5f5;
+            margin-bottom: 20px;
+            resize: none;
+            outline: none;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        #user-input-text:focus {
+            border-color: #4caf50;
+        }
+
+        #send-btn {
+            background-color: #2196f3;
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        #send-btn:hover {
+            background-color: #1976d2;
+        }
+
+        #assistant-response {
+            margin-top: 30px;
+            background-color: #474747;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .response-container h3 {
+            font-size: 24px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .response-container p {
+            font-size: 18px;
+            color: #b0b0b0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #9e9e9e;
+        }
+
+        footer strong {
+            color: #4caf50;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Jerry AI - Voice Assistant</h1>
+            <p>Your smart personal assistant powered by cutting-edge technology</p>
+        </header>
+        <main>
+            <section id="voice-input">
+                <div class="microphone-container">
+                    <i id="mic-icon" class="fa fa-microphone"></i>
+                    <button id="start-listening" class="btn">Start Listening</button>
+                </div>
+                <p id="status">Waiting for wake word...</p>
+            </section>
+
+            <section id="chat-container">
+                <div id="chat-box">
+                    <!-- Messages will be displayed here -->
+                </div>
+            </section>
+
+            <section id="user-input">
+                <textarea id="user-input-text" placeholder="Type something..." rows="4"></textarea>
+                <button id="send-btn" class="btn">Send</button>
+            </section>
+
+            <section id="assistant-response">
+                <div class="response-container">
+                    <h3>Assistant's Response</h3>
+                    <p id="assistant-output">Hello! I'm Jerry AI. How can I assist you today?</p>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>Created with ❤️ by <strong>Amit</strong> | Voice Assistant Powered by Llama API</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
