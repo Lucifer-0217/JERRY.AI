@@ -5,7 +5,7 @@ Welcome to **JERRY AI**, the ultimate voice assistant for tech enthusiasts and d
 ---
 
 ## 🔥 **Why Choose JERRY AI?**
-- 🚀 **Smart and Intuitive**: Say "Jerry AI" and let it handle the rest.
+- 🚀 **Smart and Intuitive**: Say "JERRY AI" and let it handle the rest.
 - 💡 **Versatile**: From setting reminders to executing code, JERRY AI can do it all.
 - 🌍 **Multi-language Support**: Communicate in your preferred language effortlessly.
 - 🧠 **Memory Like an Elephant**: Never forget important events or tasks.
@@ -17,7 +17,7 @@ Welcome to **JERRY AI**, the ultimate voice assistant for tech enthusiasts and d
 
 ### 🎤 **Speech Recognition**
 - **Powered by Vosk**: Converts real-time audio into text.
-- **Wake Word Detection**: Simply say "Jerry AI" to wake it up!
+- **Wake Word Detection**: Simply say "JERRY AI" to wake it up!
 
 ### 🧠 **Natural Language Processing**
 - **Llama API Integration**: Provides intelligent and context-aware responses.
